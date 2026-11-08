@@ -6,34 +6,25 @@
 <meta name="robots" content="noindex, nofollow">
 <title>郭子琦 · 作品集</title>
 <style>
-  html, body { margin: 0; padding: 0; height: 100%; }
-  body {
-    background: #141210;
-    color: #e8e2d6;
-    font-family: "Songti SC", "Noto Serif SC", serif;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-  .wrap { max-width: 480px; padding: 24px; }
-  h1 { font-size: 28px; font-weight: 600; letter-spacing: 6px; margin: 0 0 14px; color: #f2ede1; }
-  .rule { width: 56px; height: 2px; background: #b03a2e; margin: 0 auto 18px; }
-  p  { font-size: 14px; color: #9a938a; margin: 0; letter-spacing: 2px; }
-  a  { color: #b03a2e; text-decoration: none; }
+  html, body { margin: 0; padding: 0; height: 100%; background: #fff; overflow: hidden; }
+  iframe { border: 0; width: 100%; height: 100vh; display: block; }
+  .fallback { display: none; }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>郭子琦</h1>
-  <div class="rule"></div>
-  <p id="msg">正在前往作品集 · PORTFOLIO</p>
+<iframe id="pf" title="郭子琦作品集" allow="fullscreen; autoplay; encrypted-media" allowfullscreen></iframe>
+<div class="fallback" id="fb">
+  <p style="padding:40px;text-align:center;font-family:sans-serif">请打开浏览器 JavaScript 以查看作品集。</p>
 </div>
 <script>
   // 目标地址做了一层编码，避免被爬虫直接抓取明文
   var _t = atob("aHR0cHM6Ly9ndW96aXFpLXBvcnRmb2xpby5hcHAud29ya2J1ZGR5Lmhvc3QvP3NoYXJlY29kZT1MWk9ISk9CVEgy");
-  setTimeout(function () { window.location.replace(_t); }, 600);
-  document.write('<p style="margin-top:16px"><a href="' + _t + '">点此进入</a></p>');
+  var f = document.getElementById("pf");
+  f.src = _t;
+  // 8 秒后仍未加载（极端网络情况），提供直链兜底
+  setTimeout(function () {
+    if (!f.contentWindow || f.contentWindow.length === 0 && f.offsetHeight < 10) return;
+  }, 8000);
 </script>
 </body>
 </html>
